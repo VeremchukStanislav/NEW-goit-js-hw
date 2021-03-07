@@ -305,8 +305,405 @@ d /= 10;
 
 function makeTransaction(pricePerDroid, orderedQuantity, customerCredits) {
   let message;
-  // Пиши код ниже этой строки
-
-  // Пиши код выше этой строки
+const totalPrice  = pricePerDroid * orderedQuantity;
+  if (totalPrice > customerCredits ){
+  message = 'Недостаточно средств на счету!';}
+  else {
+  customerCredits-=totalPrice
+  message = `Вы купили ${orderedQuantity} дроидов, на счету осталось ${customerCredits} кредитов`;}
   return message;
+}
+
+makeTransaction(3000, 5, 23000)
+makeTransaction(1000, 3, 15000)
+makeTransaction(5000, 10, 8000)
+makeTransaction(2000, 8, 10000)
+makeTransaction(500, 10, 5000)
+
+// Задание 19
+// Функция checkPassword(password) получает пароль пользователя в параметр password,
+// проверяет его на совпадение с паролем администратора в переменной ADMIN_PASSWORD
+// и возвращает сообщение о результате сравнения, хранящееся в переменной message.
+
+// Если значение параметра password равно null, значит пользователь отменил операцию
+// и в message записывается строка 'Отменено пользователем!'.
+// Если значение параметра password совпадает со значением ADMIN_PASSWORD,
+// в переменную message присваивается строка 'Добро пожаловать!'.
+// Если ни одно из предыдущих условий не выполнилось,
+// в переменную message записывается строка 'Доступ запрещен, неверный пароль!'.
+
+function checkPassword(password) {
+  const ADMIN_PASSWORD = 'jqueryismyjam';
+  let message;
+
+  if (password === null) {
+    message =  'Отменено пользователем!';
+  } else if (password === 'jqueryismyjam') {
+    message = 'Добро пожаловать!';
+  } else {
+    message = 'Доступ запрещен, неверный пароль!';
+  }
+
+  return message;
+}
+
+// Задание 20
+// Функция checkStorage(available, ordered) проверяет возможность оформления заказа и возвращает сообщение о результате.
+// Она объявляет два параметра, значения которых будут задаваться во время её вызова.
+
+//     available - доступное количество товаров на складе
+//     ordered - единиц товара в заказе
+
+// Используя ветвления дополни код функции так, что:
+
+// Если в заказе еще нет товаров, то есть значение параметра ordered равно 0,
+// в переменную message присваивается строка В заказе еще нет товаров.
+// Eсли товаров в заказе больше чем доступно товаров на складе,
+// то в переменную message присваивается строка 'Слишком большой заказ, на складе недостаточно товаров!'.
+// В противном случае в переменную message присваевается строка 'Заказ оформлен, с вами свяжется менеджер'.
+
+function checkStorage(available, ordered) {
+  let message;
+if (ordered === 0){
+message = 'В заказе еще нет товаров';}
+  else if (ordered > available){
+  message = 'Слишком большой заказ, на складе недостаточно товаров!';}
+  else {
+  message = 'Заказ оформлен, с вами свяжется менеджер';}
+  return message;
+}
+
+// Задание 21
+// Функция isNumberInRange(start, end, number) проверяет, входит ли число в промежуток.
+// Она объявляет три параметра, значения которых будут задаваться во время её вызова:
+
+//     number - число, вхождение которого проверяется
+//     start - начало числового промежутка
+//     end - конец числового промежутка
+
+// Присвой переменной isInRange выражение проверки вхождения number в числовой промеждуток от srart до end.
+// То есть число должно быть больше либо равно start и меньше либо равно end.
+// Результатом выражения проверки будет буль true или false.
+
+function isNumberInRange(start, end, number) {
+  const isInRange = number >= start && number <= end;
+
+  return isInRange;
+}
+
+// Задание 22
+// Функция checkIfCanAccessContent(subType) проверяет, может ли пользователь получить доступ к контенту.
+// Проверка происходит по типу подписки.Получить доступ могут только пользователи с подпиской pro или vip.
+
+// Присвой переменной canAccessContent выражение проверки подписки.
+// Если значение параметра subType равно строкам 'pro' или 'vip', пользователь получит доступ.
+// Результатом выражения проверки будет буль true или false.
+
+function checkIfCanAccessContent(subType) {
+  const canAccessContent = subType === 'pro' || subType === 'vip';
+
+  return canAccessContent;
+}
+
+// Задание 23
+// Функция isNumberNotInRange(start, end, number) проверяет, не входит ли число в промежуток.
+// То есть число должно быть меньше либо равно start и больше либо равно end.
+// Результатом выражения проверки будет буль true или false.
+
+// Она объявляет три параметра, значения которых будут задаваться во время её вызова:
+
+//     number - число, не вхождение которого проверяется
+//     start - начало числового промежутка
+//     end - конец числового промежутка
+
+// Присвой переменной isNotInRange выражение инверсии значения переменной isInRange используя оператор !.
+
+function isNumberNotInRange(start, end, number) {
+  const isInRange = number >= start && number <= end;
+  const isNotInRange = !isInRange;
+
+  return isNotInRange;
+}
+
+// Задание 24
+// Функция getDiscount(totalSpent) определяет значение скидки в зависимости от общей суммы потраченных денег
+//   (параметр totalSpent) в магазине за всё время(партнёрская программа).
+// Скидка записывается в переменную discount и возвращается из функции как результат её работы.
+
+// Используя ветвления и логические операторы, дополни код функции.
+
+//     Если потрачено от 50000 или больше кредитов - скидка 10% (золотой партнёр)
+//     Если потрачено от 20000 (включительно) до 50000 кредитов - скидка 5% (серебрянный партнёр)
+//     Если потрачено от 5000 (включительно) до 20000 кредитов - скидка 2% (бронзовый партнёр)
+//     Если потрачено меньше чем 5000 кредитов - скидка 0 (базовый партнёр)
+
+// Значения скидок каждого уровня хранятся в одноимённых константах
+// BASE_DISCOUNT, BRONZE_DISCOUNT, SILVER_DISCOUNT и GOLD_DISCOUNT.
+
+function getDiscount(totalSpent) {
+  const BASE_DISCOUNT = 0;
+  const BRONZE_DISCOUNT = 0.02;
+  const SILVER_DISCOUNT = 0.05;
+  const GOLD_DISCOUNT = 0.1;
+  let discount;
+if (totalSpent >= 50000){
+discount = 0.1}
+  else if (totalSpent >= 20000 && totalSpent < 50000){
+  discount = 0.05}
+  else if (totalSpent >= 5000){
+  discount = 0.02}
+  else if (totalSpent < 5000){
+  discount = 0}
+  return discount;
+}
+
+// Задание 25
+// Выполни рефакторинг решения задачи «Склад товаров», заменив инструкцию if...else тернарным оператором.
+
+function checkStorage(available, ordered) {
+  let message;
+message = ordered > available ? 'На складе недостаточно товаров!': 'Заказ оформлен, с вами свяжется менеджер';
+  return message;
+}
+
+// Задание 26
+// Функция checkPassword(password) сравнивает переданный ей пароль(параметр password)
+// с сохранённым паролем администратора(константа ADMIN_PASSWORD) и возвращает строку с сообщением о результате.
+
+// Используя тернарный оператор дополни функцию так, что:
+
+//     Если значения password и ADMIN_PASSWORD совпадают, присвой переменной message строку 'Доступ разрешен'.
+//     В противном случае, присвой message строку 'Доступ запрещён, неверный пароль!'.
+
+function checkPassword(password) {
+  const ADMIN_PASSWORD = 'jqueryismyjam';
+  let message;
+message = password === ADMIN_PASSWORD ? 'Доступ разрешен' : 'Доступ запрещён, неверный пароль!'
+  return message;
+}
+
+// Задание 27
+// Функция getSubscriptionPrice(type) получает строку с типом подписки пользователя(параметр type),
+// проверяет её на совпадение с тремя возможными типами ежемесячной подписки и возвращает цену хранящуюся в переменной price.
+
+// Если значение параметра type это строка:
+
+//     'starter' - цена подписки 0 кредитов.
+//     'professional' - цена подписки 20 кредитов.
+//     'organization' - цена подписки 50 кредитов.
+
+// Изначально в теле функции была инструкция if...else, которая выглядела вот так.
+
+// if (type === 'starter') {
+//   price = 0;
+// } else if (type === 'professional') {
+//   price = 20;
+// } else if (type === 'organization') {
+//   price = 50;
+// }
+
+// После рефакторинга инструкция if..else была заменена на switch. 
+// Дополни код инструкции switch, чтобы функция работала правильно.
+
+function getSubscriptionPrice(type) {
+  let price;
+
+ switch (type) { 
+    case 'starter': 
+      price = 0; 
+      break;
+
+    case 'professional': 
+      price = 20; 
+      break;
+
+    case 'organization': 
+      price = 50; 
+      break;
+  }
+
+  return price;
+}
+
+// Задание 28 
+// Функция checkPassword(password) получает пароль в параметр password,
+// проверяет его на совпадение с паролем администратора в переменной ADMIN_PASSWORD
+// и возвращает сообщение о результате сравнения, хранящееся в переменной message.
+
+// Если значение параметра password:
+
+// равно null, значит пользователь отменил операцию и в message записывается строка 'Отменено пользователем!'.
+// совпадает со значением ADMIN_PASSWORD, в переменную message присваивается строка 'Добро пожаловать!'.
+// не удобвлетворяет ни одному из предыдущих условий, в переменную message записывается строка 'Доступ запрещен, неверный пароль!'.
+
+// Проведи рефакторинг кода, заменив инструкцию if..else на switch, и не забудь о блоке default (аналог else).
+
+function checkPassword(password) {
+  const ADMIN_PASSWORD = 'jqueryismyjam';
+  let message;
+
+  switch (password){
+    case null: 
+      message = 'Отменено пользователем!';
+      break
+    case ADMIN_PASSWORD:
+      password === ADMIN_PASSWORD
+       message = 'Добро пожаловать!';
+      break
+    default:
+       message = 'Доступ запрещён, неверный пароль!';
+      break
+  }
+      
+  return message;
+}
+
+// Задание 29
+// Функция getShippingCost(country) должна проверять возможность доставки товара в страну пользователя
+// (параметр country) и возвращать сообщение о результате хранящееся в переменной message.
+// Обязательно используй инструкцию switch.
+
+// Формат возвращаемой строки Доставка в < страна > будет стоить < цена > кредитов,
+// где вместо < страна > и < цена > необходимо подставить соотвествующие значения.
+
+// Список стран и стоимость доставки:
+
+//     Китай - 100 кредитов
+//     Чили - 250 кредитов
+//     Австралия - 170 кредитов
+//     Ямайка - 120 кредитов
+
+// Из списка видно, что доставка есть не везде.
+// Если указанной страны нет в списке, то функция должна вернуть строку 'Извините, в вашу страну доставки нет'
+
+function getShippingCost(country) {
+  let message;
+  const China = 'Китай'
+  const Chili = 'Чили'
+  const Australia = 'Австралия'
+  const JAMAICA = 'Ямайка'
+switch (country){
+  case China:
+    price = 100;
+    message = `Доставка в ${China} будет стоить ${price} кредитов`;
+    break;
+    
+    case Chili:
+    price = 250;
+    message = `Доставка в ${Chili} будет стоить ${price} кредитов`;
+    break;
+    
+    case Australia:
+    price = 170;
+    message = `Доставка в ${Australia} будет стоить ${price} кредитов`;
+    break;
+    
+    case JAMAICA:
+    price = 120;
+    message = `Доставка в ${JAMAICA} будет стоить ${price} кредитов`;
+    break;
+    
+default :
+    message = 'Извините, в вашу страну доставки нет';
+}
+  return message;
+}
+
+// Задание 30 
+// Функция getNameLength(name) принимает имя(параметр name) и возвращает строку, в которой указана его длина.
+// Дополни шаблонную строку в переменной message длиной строки из параметра name.
+
+function getNameLength(name) {
+  const message = `Длина вашего имени ${name.length} символа(ов)`; // Дополни эту строку
+
+  return message;
+}
+
+// Задание 31
+// Дополни код присвоив объявленным переменным выражения обращения к соответствующим элементам
+// или свойствам строки в переменной course.
+
+//     courseTopicLength - длина строки.
+//     firstElement - первый символ строки.
+//     lastElement - последний символ строки.
+
+const courseTopic = 'JavaSript для начинающих';
+
+const courseTopicLength = courseTopic.length;
+const firstElement = courseTopic[0];
+const lastElement = courseTopic[courseTopic.length - 1];
+
+// Задание 32
+// Функция getSubstring(string, length) принимает строку и возвращает подстроку от начала и до length символов.
+// Она объявляет два параметра, значения которых будут задаваться во время её вызова:
+
+//     string - оригинальная строка
+//     length - количество символов с начала строки для подстроки
+
+// Присвой переменной substring выражение создания подстроки длинной length символов (от начала) из строки string.
+
+function getSubstring(string, length) {
+  const substring = string.slice(string, length); // Дополни эту строку
+
+  return substring;
+}
+
+// Задание 33
+// Функция formatMessage(message, maxLength) принимает строку(параметр message) и форматирует её,
+// если длина превышает значение в параметре maxLength.
+
+// Дополни код функции так, что если длина строки:
+
+// не превышает maxLength, функция возвращает её в исходном виде.
+// больше maxLength, то функция обрезает строку до maxLength символов и добавляет в конец троеточие '...',
+// после чего возвращает укороченную версию.
+
+function formatMessage(message, maxLength) {
+  let result;
+// Пиши код ниже этой строки
+if (maxLength >= message.length){
+result = message}
+  else {
+  result = message.slice(0,maxLength) + '...'}
+// Пиши код выше этой строки
+  return result;
+}
+
+// Задание 34
+// Функция normalizeInput(input) принимает строку(параметр input) и возвращает такую же строку, но в нижнем регистре.
+// Присвой переменной normalizedInput выражение создания строки в нижнем регистре из параметра input.
+
+function normalizeInput(input) {
+  const normalizedInput = input.toLowerCase(input);
+  return normalizedInput;
+}
+
+// Задание 35
+// Функция checkName(fullname, name) принимает два параметра и возвращает буль true или false - результат проверки вхождения
+// подстроки name в строку fullname.
+
+//     fullname - полное имя состоящее из двух слов (имени и фамилии) разделённых пробелом.
+//     name - имя для проверки вхождения в полное имя.
+
+// Присвой переменной result выражение проверки вхождения имени(параметр name), в полное имя(параметр fullname).
+// Пусть функция строго относится к регистру букв, то есть «Петя» и «петя» для неё разные имена.
+
+function checkForName(fullName, name) {
+ const result = fullName.includes (name); 
+  return result;
+}
+
+// Задание 36
+// Функция checkForSpam(message) принимает строку(параметр message),
+// проверяет её на содержание запрещённых слов spam и sale, и возвращает результат проверки.
+// Слова в строке параметра message могут быть в произвольном регистре, например SPAM или sAlE.
+
+//     Если нашли запрещённое слово (spam или sale) то функция возвращает буль true.
+//     Если в строке нет запрещённых слов, функция возвращает буль false.
+
+function checkForSpam(message) {
+  let result;
+result = message.toLowerCase().includes('spam') || 
+  message.toLowerCase().includes('sale')
+  return result;
 }
